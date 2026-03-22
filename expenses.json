@@ -1,0 +1,52 @@
+[
+    {
+        "name": "train",
+        "amount": 10.0,
+        "category": "travel"
+    },
+    {
+        "name": "house",
+        "amount": 300.0,
+        "category": "rent"
+    },
+    {
+        "name": "pizza",
+        "amount": 25.0,
+        "category": "food"
+    },
+    {
+        "name": "juice",
+        "amount": 4.0,
+        "category": "food"
+    },
+    {
+        "name": "apple",
+        "amount": 1.99,
+        "category": "food",
+        "date": "2026-03-20"
+    },
+    {
+        "name": "kiwi",
+        "amount": 3.0,
+        "category": "food",
+        "date": "2026-03-20"
+    },
+    {
+        "name": "r",
+        "amount": 1.0,
+        "category": "\\food",
+        "date": "fejkrfh"
+    },
+    {
+        "name": "coffee",
+        "amount": 10.0,
+        "category": "food",
+        "date": "2026-03-22"
+    },
+    {
+        "name": "car",
+        "amount": 15.0,
+        "category": "travel",
+        "date": "2026-03-22"
+    }
+]
