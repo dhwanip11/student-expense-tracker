@@ -139,6 +139,25 @@ def get_translation(lang, key):
     return TRANSLATIONS.get(lang, TRANSLATIONS["en"]).get(key, key)
 
 
+# ---------- EXCHANGE RATES ----------
+# Based on 1 EUR = X currency
+EXCHANGE_RATES = {
+    "EUR": 1.0,
+    "USD": 1.10,      # 1 EUR ≈ 1.10 USD
+    "GBP": 0.86,      # 1 EUR ≈ 0.86 GBP
+    "INR": 90.0,      # 1 EUR ≈ 90 INR
+    "JPY": 130.0      # 1 EUR ≈ 130 JPY
+}
+
+def convert_currency(amount, from_currency, to_currency):
+    """Convert amount from one currency to another"""
+    if from_currency == to_currency:
+        return amount
+    # Convert to EUR first, then to target currency
+    eur_amount = amount / EXCHANGE_RATES.get(from_currency, 1.0)
+    return eur_amount * EXCHANGE_RATES.get(to_currency, 1.0)
+
+
 # ---------- USER STORAGE ----------
 def load_users():
     try:
@@ -468,7 +487,13 @@ def home(request: Request, view: str = "expenses", month: str = "", sort: str = 
     if month:
         expenses = [e for e in expenses if e["date"].startswith(month)]
 
-    total = sum(e["amount"] for e in expenses)
+    # Calculate total with currency conversion
+    total = 0
+    for e in expenses:
+        original_currency = e.get("original_currency", "EUR")
+        display_amount = convert_currency(e["amount"], original_currency, currency)
+        total += display_amount
+    
     budget = users[user].get("budget", 0)
     remaining = budget - total
     usage_percent = int((total / budget) * 100) if budget > 0 else 0
@@ -479,8 +504,12 @@ def home(request: Request, view: str = "expenses", month: str = "", sort: str = 
     dates = {}
 
     for e in expenses:
-        categories[e["category"]] = categories.get(e["category"], 0) + e["amount"]
-        dates[e["date"]] = dates.get(e["date"], 0) + e["amount"]
+        # Convert amount to current currency if it was stored in a different currency
+        original_currency = e.get("original_currency", "EUR")
+        display_amount = convert_currency(e["amount"], original_currency, currency)
+        
+        categories[e["category"]] = categories.get(e["category"], 0) + display_amount
+        dates[e["date"]] = dates.get(e["date"], 0) + display_amount
 
     sorted_dates = sorted(dates.items())
     date_labels = json.dumps([d[0] for d in sorted_dates])
@@ -492,9 +521,11 @@ def home(request: Request, view: str = "expenses", month: str = "", sort: str = 
         top_percent = round((categories[top_category] / total) * 100)
 
     if expenses:
-        highest = max(expenses, key=lambda x: x["amount"])
+        highest_converted = convert_currency(max(expenses, key=lambda x: x["amount"])["amount"], 
+                                            max(expenses, key=lambda x: x["amount"]).get("original_currency", "EUR"), 
+                                            currency)
         avg = round(total / count, 2)
-        insight = f"Top spending: {top_category} ({top_percent}%) | Highest: €{highest['amount']} | Avg: €{avg}"
+        insight = f"Top spending: {top_category} ({top_percent}%) | Highest: {currency_symbol}{highest_converted} | Avg: {currency_symbol}{avg}"
     else:
         insight = t("no_expenses_msg")
 
@@ -512,6 +543,9 @@ def home(request: Request, view: str = "expenses", month: str = "", sort: str = 
 
     expense_html = ""
     for e in expenses:
+        # Convert amount to current currency
+        original_currency = e.get("original_currency", "EUR")
+        display_amount = convert_currency(e["amount"], original_currency, currency)
 
         if edit_id == e.get("id"):
             expense_html += f"""
@@ -539,7 +573,7 @@ def home(request: Request, view: str = "expenses", month: str = "", sort: str = 
                     {note_html}
                 </div>
                 <div class="text-right">
-                    <p class="text-green-400 font-bold">{currency_symbol}{round(e['amount'], 2)}</p>
+                    <p class="text-green-400 font-bold">{currency_symbol}{round(display_amount, 2)}</p>
 
                     <a href="/?edit_id={e.get('id','')}&view={view}&month={month}&sort={sort}" 
                     class="text-blue-400 text-xs hover:text-blue-300">{t('edit')}</a>
@@ -959,10 +993,14 @@ def add(request: Request, name: str = Form(...), amount: float = Form(...), cate
     if not user:
         return RedirectResponse("/login", status_code=303)
 
+    # Store the original currency with the expense
+    original_currency = users[user].get("currency", "EUR")
+    
     users[user]["expenses"].append({
         "id": str(uuid.uuid4()),
         "name": name,
         "amount": amount,
+        "original_currency": original_currency,
         "category": category,
         "note": note,
         "date": datetime.today().strftime("%Y-%m-%d")
@@ -987,6 +1025,9 @@ def edit(request: Request, id: str = Form(...), name: str = Form(...), amount: f
             e["amount"] = amount
             e["category"] = category
             e["note"] = note
+            # Preserve the original currency
+            if "original_currency" not in e:
+                e["original_currency"] = users[user].get("currency", "EUR")
 
     save_users(users)
     return RedirectResponse("/?msg=Expense updated successfully", status_code=303)
@@ -1017,16 +1058,21 @@ def export_csv(request: Request):
         return RedirectResponse("/login", status_code=303)
 
     expenses = users[user]["expenses"]
+    currency = users[user].get("currency", "EUR")
 
     output = StringIO()
     writer = csv.writer(output)
 
-    writer.writerow(["Name", "Amount", "Category", "Note", "Date"])
+    writer.writerow(["Name", "Amount", "Original Currency", f"Amount in {currency}", "Category", "Note", "Date"])
 
     for e in expenses:
+        original_currency = e.get("original_currency", "EUR")
+        converted_amount = convert_currency(e.get("amount", 0), original_currency, currency)
         writer.writerow([
             e.get("name"),
             e.get("amount"),
+            original_currency,
+            round(converted_amount, 2),
             e.get("category"),
             e.get("note"),
             e.get("date")
