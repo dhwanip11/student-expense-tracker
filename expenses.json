@@ -1,1 +1,42 @@
-[]
+[
+    {
+        "name": "Coffee",
+        "amount": 10.0,
+        "category": "Food",
+        "note": "",
+        "date": "2026-03-24",
+        "id": "48df810a-291c-463c-bacb-021b7a4c4c28"
+    },
+    {
+        "name": "H & M",
+        "amount": 25.0,
+        "category": "Shopping",
+        "note": "",
+        "date": "2026-03-24",
+        "id": "85fee31b-0880-4b66-ab46-7f69fbd2bdbd"
+    },
+    {
+        "name": "Pain killer",
+        "amount": 10.0,
+        "category": "Health",
+        "note": "",
+        "date": "2026-03-24",
+        "id": "988758af-6f52-4a66-96d7-b89c301e76f5"
+    },
+    {
+        "name": "Deposit",
+        "amount": 100.0,
+        "category": "Rent",
+        "note": "",
+        "date": "2026-03-24",
+        "id": "1dbf6b5e-858f-42ca-a837-835b4a34a74e"
+    },
+    {
+        "name": "Flight",
+        "amount": 200.0,
+        "category": "travel",
+        "note": "",
+        "date": "2026-03-24",
+        "id": "fe086056-9b83-4779-b9d7-60e9d04e9ee0"
+    }
+]

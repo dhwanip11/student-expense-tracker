@@ -1,0 +1,166 @@
+{
+    "dhwanip": {
+        "password": "$pbkdf2-sha256$29000$r9Wak5JSCkGIkVIqpRRCiA$oirxz38YFqBEQmIgBsB8hJtVSxBAryKn56j334ODcDw",
+        "expenses": [
+            {
+                "id": "ee5134ce-0241-4cca-81ac-a0384132290a",
+                "name": "bus",
+                "amount": 10.0,
+                "category": "travel",
+                "note": "",
+                "date": "2026-03-25"
+            },
+            {
+                "id": "3ea545a0-c6e9-405a-ac88-be41d374341d",
+                "name": "coffee",
+                "amount": 20.0,
+                "category": "Food",
+                "note": "",
+                "date": "2026-03-25"
+            },
+            {
+                "id": "dd639f83-ac82-4582-9258-193857bd236f",
+                "name": "Teddi",
+                "amount": 10.0,
+                "category": "Shopping",
+                "note": "",
+                "date": "2026-03-27"
+            },
+            {
+                "id": "04765a70-9ce9-4e73-89ba-ecfd93aab682",
+                "name": "Aktion",
+                "amount": 20.0,
+                "category": "Beauty",
+                "note": "",
+                "date": "2026-03-27"
+            },
+            {
+                "id": "2c3e04ff-d6c5-40ec-8a35-2107f1181113",
+                "name": "kik",
+                "amount": 20.0,
+                "category": "Other",
+                "note": "",
+                "date": "2026-03-27"
+            },
+            {
+                "id": "a5483441-a754-4af3-b48c-ba28426dfc26",
+                "name": "tea",
+                "amount": 5.0,
+                "category": "Food",
+                "note": "",
+                "date": "2026-03-27"
+            },
+            {
+                "id": "4dfbc44a-fdde-49d4-94ad-518d5314a72f",
+                "name": "train",
+                "amount": 14.0,
+                "category": "travel",
+                "note": "",
+                "date": "2026-03-27"
+            },
+            {
+                "id": "cf659d54-825e-41ca-bd5d-6e471cb9463e",
+                "name": "choclate",
+                "amount": 1.0,
+                "category": "Food",
+                "note": "",
+                "date": "2026-03-27"
+            },
+            {
+                "id": "399d57bf-3859-4581-8998-b156a643fc50",
+                "name": "sushi",
+                "amount": 20.0,
+                "category": "food",
+                "note": "",
+                "date": "2026-03-27"
+            },
+            {
+                "id": "094e3ef7-5529-43e9-8c3d-2a6974da8867",
+                "name": "Groceries",
+                "amount": 70.0,
+                "category": "Food",
+                "note": "",
+                "date": "2026-03-29"
+            },
+            {
+                "id": "b2e4a359-b405-4e92-a710-51988e020f41",
+                "name": "Stand",
+                "amount": 4.0,
+                "category": "Rent",
+                "note": "",
+                "date": "2026-03-30"
+            }
+        ],
+        "budget": 100.0,
+        "theme": "dark",
+        "language": "de",
+        "currency": "INR"
+    },
+    "asha12": {
+        "password": "okok",
+        "expenses": [],
+        "budget": 0
+    },
+    "nilesh11": {
+        "password": "abc",
+        "expenses": [],
+        "budget": 0
+    },
+    "tirth11": {
+        "password": "okok",
+        "expenses": [],
+        "budget": 0
+    },
+    "Tirth11": {
+        "password": "okok",
+        "expenses": [
+            {
+                "id": "fa364d04-9f0f-4d34-b861-5e897926e227",
+                "name": "Houston Trip",
+                "amount": 98.0,
+                "category": "Travel",
+                "note": "Paid by Shubh",
+                "date": "2026-03-29"
+            },
+            {
+                "id": "563bbb7e-9715-4746-abf9-51ebb7677d10",
+                "name": "Rent",
+                "amount": 1500.0,
+                "category": "Rent",
+                "note": "",
+                "date": "2026-03-29"
+            }
+        ],
+        "budget": 1200.0
+    },
+    "kayc18": {
+        "password": "okok",
+        "expenses": [
+            {
+                "id": "26dbadd9-4355-475a-9906-48a137ae4a19",
+                "name": "Grocery",
+                "amount": 50.0,
+                "category": "Food",
+                "note": "Paid by dhwani",
+                "date": "2026-03-30"
+            },
+            {
+                "id": "47534a63-b41a-48f4-9c73-afeb35cffb22",
+                "name": "Shopping",
+                "amount": 60.0,
+                "category": "Beauty",
+                "note": "",
+                "date": "2026-03-30"
+            },
+            {
+                "id": "91463944-a297-4ca6-b26b-9c8c6f364c95",
+                "name": "Bill",
+                "amount": 70.0,
+                "category": "Other",
+                "note": "",
+                "date": "2026-03-30"
+            }
+        ],
+        "budget": 992.0
+    }
+}
