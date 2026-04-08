@@ -1,3 +1,7 @@
 fastapi
 uvicorn
 python-multipart
+starlette
+itsdangerous
+passlib
+bcrypt
